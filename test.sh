@@ -23,4 +23,18 @@ echo "-----------------------------"
 choice=0
 while [ "$choice" -ne 9 ]; do
     read -rp "Enter your choice [1-9] " choice
+
+    case $choice in
+    1) ;;
+    2) ;;
+    3) ;;
+    4) ;;
+    5) ;;
+    6) ;;
+    7) ;;
+    8) ;;
+    9)
+        echo "Bye!"
+        ;;
+    esac
 done
