@@ -20,8 +20,7 @@ echo "9. Exit"
 
 echo "-----------------------------"
 
-choice=0
-while [ "$choice" -ne 9 ]; do
+for (( ; ; )); do
     read -rp "Enter your choice [1-9] " choice
 
     case $choice in
@@ -35,6 +34,7 @@ while [ "$choice" -ne 9 ]; do
     8) ;;
     9)
         echo "Bye!"
+        break
         ;;
     esac
 done
