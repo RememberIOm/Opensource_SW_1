@@ -41,7 +41,13 @@ while true; do
             echo
         fi
         ;;
-    3) ;;
+    3)
+        read -rp "Please enter the 'movie id' (1~1682) :" movie_id
+        echo
+
+        awk -F'\t' '$2=='"$movie_id"' {sum+=$3; ++cnt} END {printf "average rating of '"$movie_id"': %.5f", sum/cnt}' "$MY_DATA"
+        echo
+        ;;
     4) ;;
     5) ;;
     6) ;;
