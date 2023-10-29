@@ -32,7 +32,15 @@ while true; do
         awk 'NR=='"$movie_id"' {print $0}' "$MY_ITEM"
         echo
         ;;
-    2) ;;
+    2)
+        read -rp "Do you want to get the data of 'action' genre movies from 'u.item'?(y/n) :" answer
+        echo
+
+        if [ "$answer" = "y" ]; then
+            awk -F'|' '$7=="1" {print $1,$2}' "$MY_ITEM" | head
+            echo
+        fi
+        ;;
     3) ;;
     4) ;;
     5) ;;
