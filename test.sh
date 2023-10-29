@@ -48,7 +48,15 @@ while true; do
         awk -F'\t' '$2=='"$movie_id"' {sum+=$3; ++cnt} END {printf "average rating of '"$movie_id"': %.5f", sum/cnt}' "$MY_DATA"
         echo
         ;;
-    4) ;;
+    4)
+        read -rp "Do you want to delete the 'IMDb URL' from 'u.item'?(y/n) :" answer
+        echo
+
+        if [ "$answer" = "y" ]; then
+            sed -E '1,10s/http:\/\/[^\)]*\)//' "$MY_ITEM" | head
+            echo
+        fi
+        ;;
     5) ;;
     6) ;;
     7) ;;
