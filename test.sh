@@ -20,11 +20,18 @@ echo "9. Exit"
 
 echo "-----------------------------"
 
-for (( ; ; )); do
+while true; do
     read -rp "Enter your choice [1-9] " choice
+    echo
 
     case $choice in
-    1) ;;
+    1)
+        read -rp "Please enter 'movie id' (1~1682):" movie_id
+        echo
+
+        awk 'NR=='"$movie_id"' {print $0}' "$MY_ITEM"
+        echo
+        ;;
     2) ;;
     3) ;;
     4) ;;
