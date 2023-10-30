@@ -89,7 +89,18 @@ while true; do
             done
         fi
         ;;
-    7) ;;
+    7)
+        read -rp "Please enter the 'user id' (1~943) :" user_id
+        echo
+
+        user_movie_list=$(awk -F'\t' '$1=='"$user_id"' {print $2}' "$MY_DATA" | sort -n)
+
+        awk '{printf "%d|", $1}' <(echo "$user_movie_list") | sed 's/|$/\n/'
+        echo
+
+        awk -F'|' 'NR==FNR {a[$1]; next} $1 in a {printf "%d|%s\n", $1, $2}' <(echo "$user_movie_list") "$MY_ITEM" | head
+        echo
+        ;;
     8) ;;
     9)
         echo "Bye!"
