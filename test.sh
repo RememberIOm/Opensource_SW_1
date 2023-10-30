@@ -71,11 +71,22 @@ while true; do
         echo
 
         if [ "$answer" = "y" ]; then
-            cur_year=$(awk -F'|' '{print $3}' "$MY_ITEM" | head | awk -F'-' '{print $3}')
-            cur_month=$(awk -F'|' '{print $3}' "$MY_ITEM" | head | awk -F'-' '{print $2}')
-            cur_day=$(awk -F'|' '{print $3}' "$MY_ITEM" | head | awk -F'-' '{print $1}')
+            date_before=$(awk -F'|' '{print $3}' "$MY_ITEM" | tail)
 
-            echo
+            year=$(awk -F'-' '{print $3}' <(echo "$date_before"))
+            month_before=$(awk -F'-' '{print $2}' <(echo "$date_before"))
+            day=$(awk -F'-' '{print $1}' <(echo "$date_before"))
+
+            month_after=$(echo "$month_before" | sed 's/Jan/01/g' | sed 's/Feb/02/g' | sed 's/Mar/03/g' | sed 's/Apr/04/g' | sed 's/May/05/g' | sed 's/Jun/06/g' | sed 's/Jul/07/g' | sed 's/Aug/08/g' | sed 's/Sep/09/g' | sed 's/Oct/10/g' | sed 's/Nov/11/g' | sed 's/Dec/12/g')
+
+            date_after=$(paste -d'\0' <(echo "$year") <(echo "$month_after") <(echo "$day"))
+
+            item_cur=$(cat <"$MY_ITEM" | tail)
+
+            for i in {1..10}; do
+                date_cur=$(awk NR=="$i" <(echo "$date_after"))
+                awk 'NR=='"$i"' {print $0}' <(echo "$item_cur") | sed -E 's/[0-9]{2}-[A-Z][a-z]{2}-[0-9]{4}/'"$date_cur"'/'
+            done
         fi
         ;;
     7) ;;
