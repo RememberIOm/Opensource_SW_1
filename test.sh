@@ -101,7 +101,17 @@ while true; do
         awk -F'|' 'NR==FNR {a[$1]; next} $1 in a {printf "%d|%s\n", $1, $2}' <(echo "$user_movie_list") "$MY_ITEM" | head
         echo
         ;;
-    8) ;;
+    8)
+        read -rp "Do you want to get the average 'rating' of movies rated by users with 'age' between 20 and 29 and 'occupation' as 'programmer'?(y/n) :" answer
+        echo
+
+        if [ "$answer" = "y" ]; then
+            user_list=$(awk -F'|' '$2>=20 && $2<=29 && ($4=="occupation" || $4=="programmer") {print $1}' "$MY_USER")
+            movie_rating_list=$(awk -F'\t' 'NR==FNR {a[$1]; next} $1 in a {print $2, $3}' <(echo "$user_list") "$MY_DATA")
+
+            awk '{sum[$1] += $2; ++cnt[$1]} END {for (i in sum) printf "%d %.5f\n", i, sum[i]/cnt[i]}' <(echo "$movie_rating_list") | sort -n
+        fi
+        ;;
     9)
         echo "Bye!"
         break
