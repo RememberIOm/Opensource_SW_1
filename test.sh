@@ -66,7 +66,18 @@ while true; do
             echo
         fi
         ;;
-    6) ;;
+    6)
+        read -rp "Do you want to Modify the format of 'release data' in 'u.item'?(y/n) :" answer
+        echo
+
+        if [ "$answer" = "y" ]; then
+            cur_year=$(awk -F'|' '{print $3}' "$MY_ITEM" | head | awk -F'-' '{print $3}')
+            cur_month=$(awk -F'|' '{print $3}' "$MY_ITEM" | head | awk -F'-' '{print $2}')
+            cur_day=$(awk -F'|' '{print $3}' "$MY_ITEM" | head | awk -F'-' '{print $1}')
+
+            echo
+        fi
+        ;;
     7) ;;
     8) ;;
     9)
