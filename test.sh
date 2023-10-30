@@ -57,7 +57,15 @@ while true; do
             echo
         fi
         ;;
-    5) ;;
+    5)
+        read -rp "Do you want to get the data about users from 'u.user'?(y/n) :" answer
+        echo
+
+        if [ "$answer" = "y" ]; then
+            awk -F'|' '{print "user " $1 " is " $2 " years old " $3 " " $4}' "$MY_USER" | head | sed 's/M/male/' | sed 's/F/female/'
+            echo
+        fi
+        ;;
     6) ;;
     7) ;;
     8) ;;
