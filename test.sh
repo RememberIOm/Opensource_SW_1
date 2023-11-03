@@ -77,7 +77,18 @@ while true; do
             month_before=$(awk -F'-' '{print $2}' <(echo "$date_before"))
             day=$(awk -F'-' '{print $1}' <(echo "$date_before"))
 
-            month_after=$(echo "$month_before" | sed 's/Jan/01/g' | sed 's/Feb/02/g' | sed 's/Mar/03/g' | sed 's/Apr/04/g' | sed 's/May/05/g' | sed 's/Jun/06/g' | sed 's/Jul/07/g' | sed 's/Aug/08/g' | sed 's/Sep/09/g' | sed 's/Oct/10/g' | sed 's/Nov/11/g' | sed 's/Dec/12/g')
+            month_after=$(echo "$month_before" | sed '  s/Jan/01/g;
+                                                        s/Feb/02/g;
+                                                        s/Mar/03/g;
+                                                        s/Apr/04/g;
+                                                        s/May/05/g;
+                                                        s/Jun/06/g;
+                                                        s/Jul/07/g;
+                                                        s/Aug/08/g;
+                                                        s/Sep/09/g;
+                                                        s/Oct/10/g;
+                                                        s/Nov/11/g;
+                                                        s/Dec/12/g')
 
             date_after=$(paste -d'\0' <(echo "$year") <(echo "$month_after") <(echo "$day"))
 
