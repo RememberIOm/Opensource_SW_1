@@ -62,7 +62,7 @@ while true; do
         echo
 
         if [ "$answer" = "y" ]; then
-            awk -F'|' '{print "user " $1 " is " $2 " years old " $3 " " $4}' "$MY_USER" | head | sed 's/M/male/' | sed 's/F/female/'
+            awk -F'|' '{printf "user %s is %s years old %s %s\n", $1, $2, $3, $4}' "$MY_USER" | head | sed 's/M/male/' | sed 's/F/female/'
             echo
         fi
         ;;
