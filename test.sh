@@ -122,7 +122,7 @@ while true; do
             user_list=$(awk -F'|' '$2>=20 && $2<=29 && ($4=="occupation" || $4=="programmer") {print $1}' "$MY_USER")
             movie_rating_list=$(awk -F'\t' 'NR==FNR {a[$1]; next} $1 in a {print $2, $3}' <(echo "$user_list") "$MY_DATA")
 
-            awk '{sum[$1] += $2; ++cnt[$1]} END {for (i in sum) printf "%d %.5f\n", i, sum[i]/cnt[i]}' <(echo "$movie_rating_list") | sort -n
+            awk '{sum[$1] += $2; ++cnt[$1]} END {for (i in sum) printf "%d %.5f\n", i, sum[i]/cnt[i]}' <(echo "$movie_rating_list") | sort -n | sed -E 's/0*$//g;s/\.$//g'
         fi
         ;;
     9)
