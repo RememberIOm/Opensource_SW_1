@@ -92,11 +92,13 @@ while true; do
 
             date_after=$(paste -d'\0' <(echo "$year") <(echo "$month_after") <(echo "$day"))
 
-            item_cur=$(cat <"$MY_ITEM" | tail)
+            item_tail=$(cat <"$MY_ITEM" | tail)
 
             for i in {1..10}; do
                 date_cur=$(awk NR=="$i" <(echo "$date_after"))
-                awk 'NR=='"$i"' {print $0}' <(echo "$item_cur") | sed -E 's/[0-9]{2}-[A-Z][a-z]{2}-[0-9]{4}/'"$date_cur"'/'
+                item_cur=$(awk NR=="$i" <(echo "$item_tail"))
+
+                echo "$item_cur" | sed -E 's/[0-9]{2}-[A-Z][a-z]{2}-[0-9]{4}/'"$date_cur"'/'
             done
         fi
         ;;
